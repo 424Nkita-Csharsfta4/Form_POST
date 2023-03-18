@@ -1,16 +1,20 @@
 <template>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="SubmtForm">
         <div>
             <label for="name">Имя:</label>
-            <input type="text" id="name" v-model="name" />
+            <!-- <input type="text" id="name" v-model="name" /> -->
+            <custom-input v-model="name"/>
         </div>
         <div>
             <label for="email">Email:</label>
-            <input type="email" id="email" v-model="email" />
+            <!-- <input type="email" id="email" v-model="email" />
+             -->
+             <custom-input v-model="email"/>
         </div>
         <div>
             <label for="password">Пароль:</label>
-            <input type="password" id="password" v-model="password" />
+            <!-- <input type="password" id="password" v-model="password" /> -->
+            <custom-input v-model="password"/>
         </div>
         <div>
             <label for="gender">Пол:</label>
@@ -22,44 +26,71 @@
         <button type="submit">Отправить</button>
     </form>
 </template>
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
-import axios from 'axios';
+<script lang="ts" setup>
+import {ref, defineEmits} from "vue";  
 
-export default defineComponent({
-    name: 'FormComponent',
-    setup() {
-        const name = ref('');
-        const email = ref('');
-        const password = ref('');
-        const gender = ref('male');
+/** События c ts */
+const emit = defineEmits<{
+    /** Событие которое мы будем юзатб сверху <Form @send-data-form="handlerFn"/> */
+    (eventName: "send-data-form", data: [string, string, string, string]): void;
+}>();
 
-        const submitForm = () => {
-            const data = {
-                name: name.value,
-                email: email.value,
-                password: password.value,
-                gender: gender.value,
-            };
-            axios.post('http://example.com/api/users', data)
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.log(error.response.data);
-                });
+/** События без ts */
+// const emit2 = defineEmits(["send-data-form"]);
 
-        };
+/** Значения для привязки v-model: */
+const name = ref<string>();
+const email = ref<string>();
+const password = ref<string>();
 
-        return {
-            name,
-            email,
-            password,
-            gender,
-            submitForm,
-        };
-    },
-});
+/** С typescript */
+const gender = ref<string>();
+/** Без typescript */
+const gender2 = ref();
+
+const SubmtForm = () => {
+    /** Отправляем событие наверх собирая все данные из v-model */
+    emit("send-data-form", [name.value, email.value, password.value, gender.value]);
+}
+
+
+// import { defineComponent, ref } from 'vue';
+// import axios from 'axios';
+
+// export default defineComponent({
+//     name: 'FormComponent',
+//     setup() {
+//         const name = ref('');
+//         const email = ref('');
+//         const password = ref('');
+//         const gender = ref('male');
+
+//         const submitForm = () => {
+//             const data = {
+//                 name: name.value,
+//                 email: email.value,
+//                 password: password.value,
+//                 gender: gender.value,
+//             };
+//             axios.post('http://example.com/api/users', data)
+//                 .then(response => {
+//                     console.log(response.data);
+//                 })
+//                 .catch(error => {
+//                     console.log(error.response.data);
+//                 });
+
+//         };
+
+//         return {
+//             name,
+//             email,
+//             password,
+//             gender,
+//             submitForm,
+//         };
+//     },
+// });
 </script>
 <style lang="less" scoped>
 .form {
