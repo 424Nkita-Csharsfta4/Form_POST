@@ -1,8 +1,13 @@
 <template>
   <div class="input-field" :class="{ 'has-error': errorMessage }">
-    <label :for="props.name">{{ props.label }}</label>
+    <label :for="props.name">{{ props.label }} <span class="input-note">(Official e-mail address*)</span></label>
     <div class="input-wrapper">
-      <input :id="props.name" :name="props.name" v-model="modelValue" @input="onInput" />
+      <input
+       :id="props.name" 
+       :name="props.name"
+        v-model="modelValue"
+         @input="onInput"
+         placeholder="Official e-mail adress*" />
       <img v-show="!isValidEmail" src="https://cdn-icons-png.flaticon.com/512/1008/1008930.png" alt="">
     </div>
     <span class="error-message">{{ errorMessage }}</span>
@@ -34,7 +39,7 @@ const onInput = (event: Event) => {
 
 const errorMessage = computed(() => {
   if (!isValidEmail.value) {
-    return 'Invalid email format'
+    return 'E-Mail address format invalid.'
   } else {
     return ''
   }
@@ -46,6 +51,11 @@ img {
   width: 20px;
   height: 20px;
 }
+.input-note {
+  font-size: 12px;
+  color: gray;
+}
+
 
 .input-field {
   position: relative;
@@ -56,7 +66,7 @@ img {
     position: relative;
 
     input {
-      width: 20%;
+      width: 15%;
       padding: 10px 20px;
       font-size: 16px;
       line-height: 24px;
@@ -74,7 +84,7 @@ img {
 
     img {
       position: absolute;
-      left: 21%;
+      left: 16%;
       top: 50%;
       transform: translateY(-50%);
       font-size: 18px;
@@ -90,7 +100,6 @@ img {
   label {
     position: absolute;
     top: 10px;
-    left: 20px;
     font-size: 16px;
     line-height: 24px;
     color: #666;
@@ -115,7 +124,6 @@ img {
     display: none;
     position: absolute;
     bottom: -20px;
-    left: 20px;
     font-size: 14px;
     line-height: 20px;
     color: #ff4136;
