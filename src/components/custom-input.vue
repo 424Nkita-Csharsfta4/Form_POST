@@ -1,7 +1,7 @@
 <template>
   <div class='custom-input__wrap'>
     <input class="custom-input" 
-    v-model="value" :type="type" :placeholder="placeholder"/>
+    v-model="value" type="text" :placeholder="placeholder"/>
   </div>
 </template>
 

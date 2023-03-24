@@ -3,18 +3,18 @@
         <div>
             <label for="name">Имя:</label>
             <!-- <input type="text" id="name" v-model="name" /> -->
-            <custom-input v-model="name"/>
+            <!-- <custom-input v-model="name"/> -->
         </div>
         <div>
             <label for="email">Email:</label>
             <!-- <input type="email" id="email" v-model="email" />
              -->
-             <custom-input v-model="email"/>
+             <!-- <custom-input v-model="email"/> -->
         </div>
         <div>
             <label for="password">Пароль:</label>
             <!-- <input type="password" id="password" v-model="password" /> -->
-            <custom-input v-model="password"/>
+            <!-- <custom-input v-model="password"/> -->
         </div>
         <div>
             <label for="gender">Пол:</label>
